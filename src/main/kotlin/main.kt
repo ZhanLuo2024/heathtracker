@@ -25,6 +25,11 @@ fun addUser() {
     // verify email
     verifyTool.verifyemail(tempString)
 
+    print("    Gender: Female,male,other")
+    tempString = readLine()!!
+    // verify gender
+    verifyTool.verifyGender(tempString)
+
     print("    Id: ")
     user.id = readLine()?.toInt() ?: -1
 
