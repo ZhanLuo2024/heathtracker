@@ -1,49 +1,23 @@
 package utils
-import models.Gender
-import user
+import java.util.regex.Pattern
 
 /**
- * To verify user input
- *
- */
-class ValidationUtility {
-    // verify user name
-    fun verifyUsername(username: String) {
-        if (!username.isBlank()) {
-            user.name = username
-        } else {
-            throw RuntimeException("Name cannot be blank")
-        }
-    }
+* Validate the gender input
+*/
+val genderList = listOf('F', 'M', 'O')
+fun isValidGender(genderToValidate: Char) = genderToValidate in genderList
 
-    /**
-     * To verify user email
-     *
-     * */
-    fun verifyemail(useremail: String) {
-        val regex = Regex("[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}")
-        val matches = regex.find(useremail)
-        if (matches != null) {
-            user.email = useremail
-        } else {
-            throw RuntimeException("Please enter a correct email address")
-        }
-    }
+fun isValidInRange(valueToCheck: Double, minValue: Double, maxValue: Double): Boolean{
+    return (valueToCheck >= minValue) && (valueToCheck <= maxValue)
+}
 
-    /**
-     * To verify user gender
-     *
-     * */
-    fun verifyGender(gender: String) {
-        if (gender == "Male" || gender == "male") {
-            user.gender = Gender.MALE
-        } else if (gender == "FeMale" || gender == "female") {
-            user.gender = Gender.FEMALE
-        } else {
-            user.gender = Gender.OTHER
-        }
-    }
-
-
-
+fun isValidEmail(email: String): Boolean {
+    val emailRegex = "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+            "\\@" +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+            "(" +
+            "\\." +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+            ")+"
+    return Pattern.matches(emailRegex, email)
 }
